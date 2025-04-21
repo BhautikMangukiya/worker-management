@@ -1,0 +1,239 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background-color: #e2e8f0; /* Alternating body background */
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+/* Form Container */
+.task-form-container {
+  max-width: 50%;
+  margin: 100px auto 30px;
+  padding: 30px;
+  background-color: #f7fafc; /* Alternating container background */
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.task-form-container:hover {
+  border-color: #3182ce;
+  transform: scale(1.02);
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Headings */
+h2 {
+  font-size: 24px;
+  color: #4a5568;
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid #3182ce;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+h2 span {
+  display: block;
+  font-size: 30x;
+  color: #3182ce;
+}
+
+/* Labels */
+label {
+  font-weight: 500;
+  font-size: 16px;
+  color: #4a5568;
+  margin-bottom: 8px;
+}
+
+/* Inputs and Textarea */
+input[type="text"],
+textarea,
+.date-container input[type="date"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  background-color: #ffffff; /* White for contrast against container */
+  color: #4a5568;
+  transition: border-color 0.3s ease;
+}
+
+textarea {
+  height: 100px;
+  padding: 10px;
+  resize: vertical;
+}
+
+input::placeholder {
+  color: #4a5568;
+  opacity: 0.6;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+.date-container input[type="date"]:focus {
+  border-color: #3182ce;
+  outline: none;
+}
+
+/* Date Input Wrapper */
+.date-input-wrapper {
+  margin-bottom: 20px;
+  background-color: #e2e8f0; /* Alternating background for date section */
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.date-container {
+  position: relative;
+  max-width: 100%;
+}
+
+.icon-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.calendar-icon {
+  margin-bottom: 12px;
+  width: 16px;
+  height: 16px;
+  color: #4a5568;
+}
+
+.date-container input[type="date"] {
+  padding-left: 40px; /* Space for icon */
+}
+
+/* Button */
+button {
+  background-color: #3182ce;
+  color: #ffffff;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  display: block;
+  margin: 20px auto 0;
+  transition: opacity 0.3s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Back Button */
+.back-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #e2e8f0; /* Alternating background */
+  color: #4a5568;
+  border: 2px solid #3182ce;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.back-btn:hover {
+  background-color: #3182ce;
+  color: #ffffff;
+  border-color: #3182ce;
+}
+
+.back-btn:active {
+  transform: scale(0.97);
+}
+
+.back-btn:focus {
+  outline: none;
+  border-color: #3182ce;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .task-form-container {
+    max-width: 80%;
+    margin-top: 60px;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  h2 span {
+    font-size: 24px;
+  }
+
+  label,
+  input[type="text"],
+  textarea,
+  .date-container input[type="date"],
+  button,
+  .back-btn {
+    font-size: 14px;
+  }
+
+  button,
+  .back-btn {
+    padding: 10px 20px;
+  }
+
+  .date-input-wrapper {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-form-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  h2 span {
+    font-size: 22px;
+  }
+
+  input[type="text"],
+  textarea,
+  .date-container input[type="date"] {
+    padding: 10px;
+  }
+
+  .date-container input[type="date"] {
+    padding-left: 35px;
+  }
+
+  .date-input-wrapper {
+    padding: 6px;
+  }
+}

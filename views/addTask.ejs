@@ -1,0 +1,73 @@
+<%- include("partials/navbar") %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Task</title>
+  <link rel="stylesheet" href="/css/addTask.css" />
+</head>
+<body>
+
+  <div class="task-form-container">
+    <h2><span>Add Task for Worker ID: <br></span><%= workerId %></h2>
+
+    <form action="/task/add" method="POST" onsubmit="return validateForm()">
+      <input type="hidden" name="workerId" value="<%= workerId %>">
+
+      <label>Task Name:</label>
+      <input type="text" name="taskName" placeholder="Task Title" required />
+
+      <label>Task Description:</label>
+      <textarea name="taskDetails" placeholder="Task Description" required></textarea>
+
+      <!-- <label>Task Due Date:</label>
+      <input type="date" name="taskDueDate" required /> -->
+
+      <div class="date-input-wrapper">
+        <label for="taskDueDate" id="taskDueDate">Task Due Date:</label>
+        <div class="date-container">
+          <div class="icon-wrapper">
+            <svg class="calendar-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+            </svg>
+          </div>
+          <input type="date" id="taskDueDate" name="taskDueDate" required />
+        </div>
+      </div>
+
+      <!-- ----------- -->
+
+      <button type="submit">Submit Task</button>
+    </form>
+
+    <div class="success" id="successMessage" style="display:none;">✅ Task submitted successfully!</div>
+
+    <a href="/tasks" class="back-btn">← Back to Dashboard</a>
+  </div>
+
+  <script>
+ 
+    // Function to validate the form before submission  
+
+    function validateForm() {
+      const taskName = document.querySelector('input[name="taskName"]').value;
+      const taskDetails = document.querySelector('textarea[name="taskDetails"]').value;
+      const taskDueDate = document.querySelector('input[name="taskDueDate"]').value;
+
+      if (!taskName || !taskDetails || !taskDueDate) {
+        alert("Please fill in all fields.");
+        return false;
+      }
+
+      // If all validations pass, show success message
+      document.getElementById("successMessage").style.display = "block";
+      return true;
+    }
+
+  </script>
+
+</body>
+</html>

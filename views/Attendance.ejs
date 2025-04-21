@@ -1,0 +1,129 @@
+<%- include("partials/navbar") %>
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management</title>
+    <link rel="stylesheet" href="/css/attendance.css">
+  </head>
+
+  <body>
+    <div class="attendance-header">
+      <div class="heading-row">
+        <div class="empty"></div>
+        <h1 class="center-heading">Attendance Management</h1>
+
+        <!-- Filter by status -->
+        <select id="filterStatus" name="filterStatus" onchange="filterAttendance()">
+          <option value="All">All</option>
+          <option value="Present">Present</option>
+          <option value="Absent">Absent</option>
+          <option value="Half-day">Half-day</option>
+        </select>
+      </div>
+
+      <p>Track and manage worker attendance efficiently.</p>
+
+      <!-- Auto-redirect on date change -->
+      <div class="date">
+        <label for="selectedDate">Select Date:</label>
+        <input type="date" id="selectedDate" name="selectedDate" value="<%= selectedDate %>" required>
+      </div>
+
+    </div>
+
+    <!-- Save All Attendance Form -->
+    <form action="/attendance/updateAll" method="POST">
+      <input type="hidden" name="date" value="<%= selectedDate %>">
+
+      <div class="attendance-table-container">
+        <table class="attendance-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Worker ID</th>
+              <th>Job Title</th>
+              <th>Position</th>
+              <th>Attendance</th>
+              <th>Note</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% records.forEach(worker=> { %>
+              <tr>
+                <td class="worker-name">
+                  <%= worker.name %>
+                </td>
+                <td>
+                  <%= worker._id %>
+                </td>
+                <td>
+                  <%= worker.jobTitle %>
+                </td>
+                <td>
+                  <%= worker.position %>
+                </td>
+
+                <td>
+                  <label><input type="radio" name="status[<%= worker._id %>]" value="Present"
+                      <%=worker.status==='Present' ? 'checked' : '' %>> Present</label>
+                  <label><input type="radio" name="status[<%= worker._id %>]" value="Absent" <%=worker.status==='Absent'
+                      ? 'checked' : '' %>> Absent</label>
+                  <label><input type="radio" name="status[<%= worker._id %>]" value="Half-day"
+                      <%=worker.status==='Half-day' ? 'checked' : '' %>> Half-day</label>
+                </td>
+
+                <td>
+                  <textarea name="note[<%= worker._id %>]" placeholder="Reason" rows="2"
+                    cols="20"><%= worker.note || '' %></textarea>
+                </td>
+
+                <td>
+                  <button type="submit" class="save">💾 Save </button>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Save All Button -->
+      <div class="save-all-container">
+        <button type="submit" class="save-all-button">💾 Save All Attendance</button>
+      </div>
+    </form>
+
+    <!-- JS for Filtering + Auto Date Submit -->
+    <script>
+      function filterAttendance() {
+        const filterValue = document.getElementById('filterStatus').value;
+        const rows = document.querySelectorAll('.attendance-table tbody tr');
+
+        rows.forEach(row => {
+          const checkedStatus = row.querySelector('input[type="radio"]:checked');
+          const status = checkedStatus ? checkedStatus.value : '';
+
+          if (filterValue === 'All' || status === filterValue) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      }
+
+      // Auto-submit on date change
+      document.getElementById('selectedDate').addEventListener('change', function () {
+        const selectedDate = this.value;
+        if (selectedDate) {
+          window.location.href = `/attendance?selectedDate=${selectedDate}`;
+        }
+      });
+    </script>
+  </body>
+
+  </html>

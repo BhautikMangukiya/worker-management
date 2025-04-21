@@ -1,0 +1,50 @@
+<%- include("partials/navbar") %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worker Management</title>
+    <link rel="stylesheet" href="/css/worker.css">
+</head>
+
+<body>
+
+    <section class="main-section">
+        <div class="header">
+            <h2>Worker Management</h2>
+            <button onclick="openAddWorkerForm()">Add Worker</button>
+        </div>
+
+        <div class="worker-list">
+            <% workers.forEach(worker => { %>
+                <div class="worker-box" onclick="redirectToTasks('<%= worker._id %>')">
+                    <h3><%= worker.name %></h3>
+                    <p><span>WorkerId:</span> <%= worker._id %></p>
+                    <p><span>Email:</span><%= worker.email %></p>
+                    <p><span>Phone:</span> <%= worker.phone %></p>
+                    <p><span>Job Title:</span> <%= worker.jobTitle %></p>
+                    <p><span>Position:</span> <%= worker.position %></p>
+                    <p><span>Salary:</span> $<%= worker.salary %></p>
+
+                    <div class="worker-actions">
+                        <button class="editWorker" onclick="editWorker('<%= worker._id %>')">Edit</button>
+                        <button class="deleteWorker" onclick="deleteWorker('<%= worker._id %>')">Delete</button>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </section>
+
+    <script src="/js/script.js"></script>
+    <script>
+        // Double-click redirect to worker tasks page
+        function redirectToTasks(workerId) {
+            window.location.href = `http://localhost:8000/workers/${workerId}/tasks`;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login - StaffManager by Codenest</title>
+  <link rel="stylesheet" href="/css/login.css">
+  <link rel="icon" href="/assets/logo4.png" type="image/png">
+</head>
+
+<body>
+
+  <div class="loggin-msg">
+    <% if (success) { %>
+      <div>
+        <%= success %>
+      </div>
+      <% } %>
+
+        <% if (error) { %>
+          <div>
+            <%= error %>
+          </div>
+          <% } %>
+  </div>
+
+  <div class="login-wrapper">
+    <div class="login-box">
+      <div class="login-left">
+
+        <div class="heading">
+          <h1 class="logo-title">StaffManager</h1>
+        </div>
+
+
+        <% if (error) { %>
+          <p class="error-message">
+            <%= error %>
+          </p>
+          <% } %>
+
+            <form method="POST" action="/login">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+              </div>
+
+              <button type="submit" class="btn login-btn">Login</button>
+            </form>
+
+            <div class="bottom-links">
+              <div class="link-row">
+                <a href="/forgot-username">Forgot Username?</a>
+                <span class="separator">|</span>
+                <a href="/forgot-password">Forgot Password?</a>
+              </div>
+            </div>
+            <div class="register">
+              <a href="/register" class="create-new-profile">Create New Profile</a>
+            </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

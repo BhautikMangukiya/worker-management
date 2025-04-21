@@ -1,0 +1,140 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #e2e8f0;
+    color: #2d3748;
+    line-height: 1.5;
+  }
+  
+  /* Container Styling */
+  .worker-details, .task-table {
+    max-width: 1000px;
+    margin: 25px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Headings */
+  h2 {
+    color: #1a202c;
+    font-size: 26px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #3182ce;
+  }
+  
+  /* Table Styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 14px 16px;
+    text-align: left;
+  }
+  
+  /* Worker Details Table */
+  .worker-details th {
+    background-color: #f7fafc;
+    width: 25%;
+    font-weight: 600;
+    color: #4a5568;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .worker-details td {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  /* Task Table */
+  .task-table th {
+    background-color: #3182ce;
+    color: #ffffff;
+    font-weight: 600;
+  }
+  
+  .task-table td {
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .task-table tr:nth-child(even) {
+    background-color: #f7fafc;
+  }
+  
+  .task-table tr:hover {
+    background-color: #edf2f7;
+  }
+  
+  /* Back Link Styling */
+  .back-link {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 10px 25px;
+    text-decoration: none;
+    color: #3182ce;
+    font-weight: 600;
+    font-size: 16px;
+    border: 2px solid #3182ce;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  
+  .back-link:hover {
+    background-color: #3182ce;
+    color: #ffffff;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .worker-details, .task-table {
+      margin: 15px;
+      padding: 15px;
+    }
+  
+    th, td {
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+  
+    h2 {
+      font-size: 22px;
+    }
+  
+    .back-link {
+      font-size: 14px;
+      padding: 8px 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .worker-details table, .task-table table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    .worker-details th, .worker-details td {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+  
+    .worker-details th {
+      background-color: #f7fafc;
+    }
+  
+    .task-table th, .task-table td {
+      min-width: 200px;
+    }
+  }

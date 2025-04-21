@@ -1,0 +1,151 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #e2e8f0; /* Light gray from your palette */
+    color: #4a5568; /* Dark gray from your palette */
+    line-height: 1.6;
+  }
+  
+  /* Main Section */
+  .main-section {
+    max-width: 1600px;
+    margin: 80px auto;
+    padding: 25px;
+    background-color: #f7fafc; /* Lightest gray from your palette */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .header h2 {
+    font-size: 32px;
+    color: #4a5568;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin: 0;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #3182ce; /* Blue from your palette */
+  }
+  
+  .header button {
+    background-color: #3182ce; /* Replacing #007bff with your blue */
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .header button:hover {
+    background-color: #2b6cb0; /* Slightly darker shade of #3182ce */
+  }
+  
+  /* Worker List */
+  .worker-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0 20px;
+  }
+  
+  /* Worker Box */
+  .worker-box {
+    background-color: #ffffff; /* White for contrast */
+    border-radius: 12px;
+    padding: 25px 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 2px solid #e2e8f0; /* Light gray border from your palette */
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .worker-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    border-color: #415a77; /* Blue accent on hover */
+  }
+  
+  .worker-box span {
+    font-size: 16px;
+    color: #4a5568;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 3px;
+  }
+  
+  .worker-box h3 {
+    font-size: 24px;
+    color: #4a5568;
+    text-align: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0; /* Light gray border */
+    
+  }
+  
+  .worker-box p {
+    font-size: 14px;
+    color: #4a5568;
+    opacity: 0.85;
+    margin-bottom: 10px;
+    padding-top: 7px;
+    padding-left: 20px;
+  }
+  
+  /* Worker Actions */
+  .task-actions {
+    margin-top: 19px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+  }
+  
+  .task-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #addTask {
+    background-color: #3182ce; /* Blue from your palette */
+    color: #ffffff;
+    padding: 10px 30px;
+  }
+  
+  #addTask:hover {
+    background-color: #2b6cb0; /* Darker shade of #3182ce */
+  }
+  
+  #workerInfo {
+    background-color: #dc3545; /* Retaining red for delete action */
+    color: #ffffff;
+    padding: 10px 26px;
+  }
+  
+  #workerInfo:hover {
+    background-color: #c82333; /* Darker red */
+  }
+  

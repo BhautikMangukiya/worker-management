@@ -1,0 +1,36 @@
+<!-- views/editWorker.ejs -->
+<%- include("partials/navbar") %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Worker</title>
+    <link rel="stylesheet" href="/css/editworker.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Edit Worker</h2>
+        <form action="/workers/edit/<%= worker._id %>" method="POST">
+            <label>Name:</label>
+            <input type="text" name="name" value="<%= worker.name %>" required>
+
+            <label>Email:</label>
+            <input type="email" name="email" value="<%= worker.email %>" required>
+            
+            <label>Phone:</label>
+            <input type="tel" name="phone" value="<%= worker.phone %>" required>
+            
+            <label>jobTitle:</label>
+            <input type="tel" name="jobTitle" value="<%= worker.jobTitle %>" required>
+
+            <label>Position:</label>
+            <input type="text" name="position" value="<%= worker.position %>" required>
+            
+            <label>Salary:</label>
+            <input type="text" name="salary" value="<%= worker.salary %>" required>
+
+            <button type="submit">Update Worker</button>
+        </form>
+    </div>
+</body>
+</html>

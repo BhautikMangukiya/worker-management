@@ -1,0 +1,125 @@
+.form-container {
+    width: 50%;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.form-container:hover {
+    border: 2px solid #dfe7fd;
+    transform: scale(1.02);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+h2 {
+    font-size: 32px;
+    color: #4a5568;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin: 0;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #3182ce;
+    display: flex;
+    justify-content: center;
+}
+
+.heading{
+    margin-bottom: 30px;
+}
+
+label {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+input:focus {
+    border-color: #2a5298;
+    outline: none;
+    box-shadow: 0 0 5px rgba(42, 82, 152, 0.2);
+}
+
+button {
+    background: #2a5298;
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+    display: block;
+    margin: 20px auto 0;
+}
+
+button:hover {
+    background: #1e3c72;
+}
+
+
+/* ---------- */
+
+.back-btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background-color: #f3f4f6; /* light gray */
+    color: #1f2937; /* dark gray text */
+    border: 1px solid #d1d5db; /* border-gray-300 */
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .back-btn:hover {
+    background-color: #e5e7eb; /* slightly darker gray on hover */
+    color: #111827; /* darker text */
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  }
+  
+  .back-btn:active {
+    transform: scale(0.97);
+  }
+  
+  .back-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* blue focus ring */
+  }
+
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+        padding: 20px;
+    }
+}

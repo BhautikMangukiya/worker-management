@@ -1,0 +1,55 @@
+<%- include("partials/navbar") %>
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Worker</title>
+        <link rel="stylesheet" href="/css/addworker.css">
+    </head>
+
+    <body> 
+
+        <div class="form-container">
+            <div class="heading">
+                <h2>Add Worker</h2>
+            </div>
+            
+
+            <form action="/workers/add" method="post" onsubmit="return validateForm()" autocomplete="off"> 
+                <label>Name:</label> <!-- Added missing label -->
+                <input type="text" name="name" placeholder="John Doe" required>
+
+                <label>Email:</label>
+                <input type="email" name="email" placeholder="example123@gmail.com" required>
+
+                <label>Phone:</label>
+                <input type="number" name="phone" placeholder="1234567890" required>
+
+                <label>jobTitle:</label>
+                <input type="text" name="jobTitle" placeholder="Software Engineer" required>
+
+                <label>Position:</label>
+                <input type="text" name="position" placeholder="Senior" required>
+
+                <label>Salary:</label>
+                <input type="number" name="salary" placeholder="50000" required>
+
+
+                <button type="submit">Add Worker</button>
+            </form>
+
+            <a href="/workers" class="back-btn">← Back to Dashboard</a>
+        </div>
+        <script>
+            function validateForm() {
+                console.log("Form submitted");
+                return true; // Ensure form validation passes
+            }
+        </script>
+    </body>
+
+    </html>

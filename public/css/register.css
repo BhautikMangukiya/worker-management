@@ -1,0 +1,146 @@
+/* Reuse Global Styles from Login CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom right, #ffffff, #e2e8f0);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Registration Container */
+.register-wrapper {
+    background: #ffffff;
+    width: 100%;
+    max-width: 500px; /* Matches login-wrapper */
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Heading */
+.register-wrapper h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #3182ce; /* Matches login heading */
+    color: #4a5568;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+/* Error and Success Messages */
+.error-message {
+    color: #dc2626;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.success-message {
+    color: #16a34a; /* Green for success */
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+.register-form {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #334155;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #f1f5f9;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus {
+    outline: none;
+    border-color: #4f46e5;
+}
+
+/* Submit Button */
+.register-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    background-color: #4f46e5; /* Matches login button */
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.register-btn:hover {
+    background-color: #4338ca;
+}
+
+.bck-to-login{
+    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-decoration: none;
+    color: #3182ce;
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 7px;
+    transition: all 0.3s ease; 
+}
+
+.bck-to-login:hover{
+    color: #4a5568;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .register-wrapper {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .register-wrapper h2 {
+        font-size: 20px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+    }
+
+    .register-btn {
+        font-size: 14px;
+    }
+}

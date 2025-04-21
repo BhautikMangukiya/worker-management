@@ -1,0 +1,54 @@
+<%- include("partials/navbar") %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Worker Task Details</title>
+  <link rel="stylesheet" href="/css/viewTask.css">
+</head>
+<body>
+  <main class="container">
+    <section class="worker-details">
+      <h2>Worker Profile</h2>
+      <table aria-label="Worker Profile Details">
+        <tr><th scope="row">Name</th><td><%= worker.name %></td></tr>
+        <tr><th scope="row">Email</th><td><%= worker.email %></td></tr>
+        <tr><th scope="row">Phone</th><td><%= worker.phone %></td></tr>
+        <tr><th scope="row">Job Title</th><td><%= worker.jobTitle %></td></tr>
+        <tr><th scope="row">Position</th><td><%= worker.position %></td></tr>
+      </table>
+    </section>
+
+    <section class="task-table">
+      <h2>Assigned Tasks</h2>
+      <% if (tasks.length > 0) { %>
+        <table aria-label="Assigned Tasks">
+          <thead>
+            <tr>
+              <th scope="col">Task Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Due Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% tasks.forEach(task => { %>
+              <tr>
+                <td><%= task.taskName %></td>
+                <td><%= task.taskDetails %></td>
+                <td><%= new Date(task.taskDueDate).toLocaleDateString() %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p class="no-tasks">No tasks assigned yet.</p>
+      <% } %>
+    </section>
+
+    <a class="back-link" href="/tasks">← Back to Task Management</a>
+  </main>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<%- include("partials/navbar") %>
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <link rel="stylesheet" href="/css/task.css">
+  </head>
+
+  <body>
+
+    <section class="main-section">
+
+      <div class="header">
+        <h2>Task Management</h2>
+      </div>
+
+      <div class="worker-list">
+        <% workers.forEach(worker=> { %>
+          <div class="worker-box">
+            <h3>
+              <%= worker.name %>
+            </h3>
+            <p><span>WorkerId:</span>
+              <%= worker._id %>
+            </p>
+            <p><span>jobTitle:</span>
+              <%= worker.jobTitle %>
+            </p>
+            <p><span>Position:</span>
+              <%= worker.position %>
+            </p>
+
+            <div class="task-actions">
+              <a href="/task/add/<%= worker._id %>" >
+                <button class="add-task-btn" id="addTask">Add Task</button>
+              </a>
+
+              <a href="/workers/<%= worker._id %>/tasks">
+                <button class="view-Task"  id="workerInfo">View Task</button>
+              </a>
+
+            </div>
+
+          </div>
+          <% }) %>
+      </div>
+
+      </div>
+  </body>
+
+  </html>

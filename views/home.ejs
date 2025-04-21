@@ -1,0 +1,53 @@
+<%- include("partials/navbar") %>
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <title>Home - StaffManager by Codenest Infotech HR</title>
+        <link rel="stylesheet" href="/css/home.css">
+        <link rel="icon" href="/images/logo.png" type="image/png"> <!-- Placeholder for logo -->
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <section class="hero-section">
+
+            <div class="overlay">
+                <div class="hero-content">
+
+                    <div class="hero-card">
+                        <h1>Welcome to <span class="highlight">StaffManager</span></h1>
+                        <p class="subtitle"><strong>Smart HR Solutions for Codenest Infotech.</strong></p>
+                        <p class="description">Effortlessly manage employee records, tasks, attendance, and salaries —
+                            all in one secure platform.</p>
+                        <button class="cta-button" onclick="window.location.href='/workers/add'">Add Worker</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-access">
+            <h2 class="section-title">Worker data management</h2>
+            <div class="card-container">
+                <div class="card" onclick="window.location.href='/workers'">
+                    <h3>Worker Data</h3>
+                    <p>Store and manage employee records securely</p>
+                </div>
+                <div class="card" onclick="window.location.href='/tasks'">
+                    <h3>Task Management</h3>
+                    <p>Assign, track, and store task details</p>
+                </div>
+                <div class="card" onclick="window.location.href='/attendance'">
+                    <h3>Attendance</h3>
+                    <p>Submit and track attendance data</p>
+                </div>
+                <div class="card" onclick="alert('salary Data management coming soon for HR')">
+                    <h3>Salary Management</h3>
+                    <p>Centralized and secure salary data management</p>
+                </div>
+            </div>
+        </section>
+    </body>
+
+    </html>

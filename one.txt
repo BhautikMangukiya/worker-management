@@ -1,6 +1,3 @@
-MongoDB Shell Download
-MongoDB Shell is the quickest way to connect to (and work with) MongoDB. Easily query data, configure settings, and execute other actions with this modern, extensible command-line interface — replete with syntax highlighting, intelligent autocomplete, contextual help, and error messages.
-
-Compatibility Note: Red Hat Enterprise Linux (RHEL) 7, Amazon Linux 2, SUSE Linux Enterprise Server (SLES) 12, and Ubuntu 18.04 support is deprecated and might be removed in a later mongosh release.
-
-Note: MongoDB Shell is an open source (Apache 2.0), standalone product developed separately from the MongoDB Server..
+git add .
+git commit -m "new file add"
+git push origin main

@@ -267,56 +267,172 @@ body {
     border-bottom-right-radius: 8px;
 }
 
-/* Media Queries */
+/* Responsive Design */
+
+/* Tablets (max-width: 768px) */
 @media (max-width: 768px) {
+    .navbar {
+      padding: 10px 20px;
+      height: 70px;
+    }
+  
+    .logo-icon {
+      font-size: 45px;
+      padding: 8px;
+    }
+  
+    .c {
+      font-size: 26px;
+    }
+  
+    .word-color-0 {
+      font-size: 26px;
+    }
+  
+    .word-color-1 {
+      font-size: 22px;
+    }
+  
+    .company-name {
+      font-size: 24px;
+    }
+  
+    .company-slogan {
+      font-size: 11px;
+    }
+  
     .hamburger {
-        display: block;
+      display: block;
     }
-
+  
     .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        background-color: #34495e;
-        padding: 20px 0;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background-color: #34495e;
+      padding: 15px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
     }
-
+  
     .nav-links.active {
-        display: flex;
+      display: flex;
     }
-
+  
     .nav-links li {
-        text-align: center;
-        width: 100%;
+      text-align: center;
+      width: 100%;
+      padding: 5px 0;
     }
-
+  
     .nav-links a {
-        display: block;
-        padding: 12px;
-        border-radius: 0;
+      font-size: 18px;
+      padding: 10px 15px;
+      border-radius: 0;
     }
-
+  
     .nav-links a:hover {
-        background-color: rgba(236, 240, 241, 0.1);
-        color: #ffffff;
+      background-color: rgba(236, 240, 241, 0.1);
     }
-
+  
     .logout-btn {
-        margin-top: 10px;
+      font-size: 14px;
+      padding: 8px 16px;
+      margin-top: 10px;
     }
-
-    .dropdown-menu {
-        top: 50px;
-        right: 20px;
-        min-width: 140px;
+  
+    .profile-dropdown {
+      margin-left: 10px;
     }
-
+  
     .profile-icon {
-        width: 36px;
-        height: 36px;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
     }
-}
+  
+    .dropdown-menu {
+      top: 50px;
+      right: 10px;
+      min-width: 140px;
+    }
+  
+    .dropdown-menu a {
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  }
+  
+  /* Mobile devices (max-width: 480px) */
+  @media (max-width: 480px) {
+    .navbar {
+      padding: 10px 15px;
+      height: 60px;
+    }
+  
+    .logo-container {
+      gap: 2px;
+    }
+  
+    .logo-icon {
+      font-size: 40px;
+      padding: 6px;
+    }
+  
+    .c {
+      font-size: 22px;
+    }
+  
+    .word-color-0 {
+      font-size: 22px;
+    }
+  
+    .word-color-1 {
+      font-size: 18px;
+    }
+  
+    .company-name {
+      font-size: 20px;
+    }
+  
+    .company-slogan {
+      font-size: 10px;
+      padding-bottom: 1px;
+    }
+  
+    .nav-links {
+      top: 60px;
+      padding: 10px 0;
+    }
+  
+    .nav-links a {
+      font-size: 16px;
+      padding: 8px 12px;
+    }
+  
+    .logout-btn {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+  
+    .profile-icon {
+      width: 28px;
+      height: 28px;
+      font-size: 14px;
+    }
+  
+    .dropdown-menu {
+      top: 40px;
+      right: 5px;
+      min-width: 120px;
+    }
+  
+    .dropdown-menu a {
+      font-size: 12px;
+      padding: 8px 12px;
+    }
+  }

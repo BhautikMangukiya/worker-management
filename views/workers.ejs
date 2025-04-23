@@ -20,7 +20,7 @@
 
         <div class="worker-list">
             <% workers.forEach(worker => { %>
-                <div class="worker-box" onclick="redirectToTasks('<%= worker._id %>')">
+                <div class="worker-box" ondblclick="redirectToTasks('<%= worker._id %>')">
                     <h3><%= worker.name %></h3>
                     <p><span>WorkerId:</span> <%= worker._id %></p>
                     <p><span>Email:</span><%= worker.email %></p>

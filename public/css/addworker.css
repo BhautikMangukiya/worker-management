@@ -117,9 +117,204 @@ button:hover {
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* blue focus ring */
   }
 
+/* Responsive Design */
+
+/* Tablets and smaller devices (max-width: 768px) */
 @media (max-width: 768px) {
     .form-container {
-        width: 90%;
-        padding: 20px;
+      width: 90%;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     }
-}
+  
+    .form-container:hover {
+      transform: none; /* Disable scale effect on smaller screens */
+      border: 1px solid #dfe7fd; /* Revert to lighter border */
+    }
+  
+    h2 {
+      font-size: 26px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #3182ce;
+    }
+  
+    .heading {
+      margin-bottom: 20px;
+    }
+  
+    label {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+  
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      font-size: 14px;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+    }
+  
+    input::placeholder {
+      font-size: 13px;
+    }
+  
+    input:focus {
+      box-shadow: 0 0 4px rgba(42, 82, 152, 0.15);
+    }
+  
+    button {
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 4px;
+      margin-top: 15px;
+    }
+  
+    .back-btn {
+      font-size: 0.813rem; /* ~13px */
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      border: 1px solid #d1d5db;
+    }
+  
+    .back-btn:focus {
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+    }
+  }
+  
+  /* Mobile devices (max-width: 480px) */
+  @media (max-width: 480px) {
+    .form-container {
+      width: 95%;
+      margin-top: 35px;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+  
+    h2 {
+      font-size: 22px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #3182ce;
+    }
+  
+    .heading {
+      margin-bottom: 15px;
+    }
+  
+    label {
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+  
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      font-size: 13px;
+      padding: 8px;
+      margin-bottom: 12px;
+      border-radius: 3px;
+    }
+  
+    input::placeholder {
+      font-size: 12px;
+    }
+  
+    input:focus {
+      box-shadow: 0 0 3px rgba(42, 82, 152, 0.1);
+    }
+  
+    button {
+      font-size: 13px;
+      padding: 8px 18px;
+      border-radius: 3px;
+      margin-top: 16px;
+      margin-bottom: 22px;
+    }
+  
+    .back-btn {
+      font-size: 0.75rem; /* ~12px */
+      padding: 0.4rem 0.8rem;
+      border-radius: 0.25rem;
+    }
+  
+    .back-btn:hover {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+  
+    .back-btn:focus {
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    }
+  
+    .back-btn:active {
+      transform: scale(0.95);
+    }
+  }
+  
+  /* Extra small devices (max-width: 360px) */
+  @media (max-width: 360px) {
+    .form-container {
+      width: 100%;
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+  
+    h2 {
+      font-size: 18px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #3182ce;
+    }
+  
+    .heading {
+      margin-bottom: 12px;
+    }
+  
+    label {
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+  
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      font-size: 12px;
+      padding: 7px;
+      margin-bottom: 10px;
+      border-radius: 3px;
+    }
+  
+    input::placeholder {
+      font-size: 11px;
+    }
+  
+    input:focus {
+      box-shadow: 0 0 2px rgba(42, 82, 152, 0.1);
+    }
+  
+    button {
+      font-size: 12px;
+      padding: 7px 15px;
+      border-radius: 3px;
+      margin-top: 10px;
+    }
+  
+    .back-btn {
+      font-size: 0.688rem; /* ~11px */
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.2rem;
+      border: 1px solid #d1d5db;
+    }
+  
+    .back-btn:hover {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+  
+    .back-btn:focus {
+      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
+    }
+  }

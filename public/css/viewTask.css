@@ -96,45 +96,84 @@
   }
   
   /* Responsive Design */
-  @media (max-width: 768px) {
-    .worker-details, .task-table {
-      margin: 15px;
-      padding: 15px;
-    }
-  
-    th, td {
-      padding: 10px 12px;
-      font-size: 14px;
-    }
-  
-    h2 {
-      font-size: 22px;
-    }
-  
-    .back-link {
-      font-size: 14px;
-      padding: 8px 20px;
-    }
+/* Tablets and smaller devices (max-width: 768px) */
+@media (max-width: 768px) {
+  .worker-details,
+  .task-table {
+    margin: 25px 10px;
+    padding: 15px;
+    border-radius: 8px;
   }
-  
-  @media (max-width: 480px) {
-    .worker-details table, .task-table table {
-      display: block;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-  
-    .worker-details th, .worker-details td {
-      display: block;
-      width: 100%;
-      text-align: left;
-    }
-  
-    .worker-details th {
-      background-color: #f7fafc;
-    }
-  
-    .task-table th, .task-table td {
-      min-width: 200px;
-    }
+
+  h2 {
+    font-size: 22px;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #3182ce;
   }
+
+  th,
+  td {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .worker-details th {
+    width: 30%;
+  }
+
+  .task-table th {
+    font-size: 14px;
+  }
+
+  .back-link {
+    margin: 15px auto;
+    padding: 8px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-top: 30px;
+  }
+}
+
+/* Mobile devices (max-width: 480px) */
+@media (max-width: 480px) {
+  .worker-details,
+  .task-table {
+    margin: 25px 10px;
+    padding: 10px;
+    border-radius: 6px;
+  }
+
+  h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    padding-bottom: 4px;
+  }
+
+  th,
+  td {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .worker-details th {
+    width: 35%;
+    font-size: 12px;
+  }
+
+  .worker-details td {
+    font-size: 12px;
+  }
+
+  .task-table th {
+    font-size: 12px;
+  }
+
+  .back-link {
+    margin: 10px auto;
+    padding: 6px 15px;
+    font-size: 12px;
+    border-radius: 4px;
+    margin-top: 30px;
+  }
+}

@@ -147,6 +147,8 @@ margin-top: 60px;
     border: 1px solid #e2e8f0;
 }
 
+
+
 .card:hover {
     transform: translateY(-5px) scale(1.03);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -193,7 +195,7 @@ margin-top: 60px;
 /* ===== Media Queries ===== */
 @media (max-width: 768px) {
     .hero-section {
-        height: 400px;
+        height: 500px;
     }
 
     .hero-content h1 {
@@ -211,6 +213,7 @@ margin-top: 60px;
     .cta-button {
         padding: 12px 24px;
         font-size: 1rem;
+        margin-top: 8px;
     }
 
     .section-title {
@@ -219,7 +222,7 @@ margin-top: 60px;
 
     .card {
         width: 90%;
-        margin-bottom: 20px;
+        margin-bottom: 2px;
     }
 
     .card h3 {
@@ -230,3 +233,8 @@ margin-top: 60px;
         font-size: 0.9rem;
     }
 }
+
+/*  */
+/*  */
+/*  */
+

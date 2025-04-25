@@ -1,0 +1,257 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f0f4f8;
+    color: #1a3c5e;
+    line-height: 1.6;
+  }
+  
+  /* Main Section */
+  .main-section {
+    max-width: 1600px;
+    margin: 80px auto 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    text-align: center;
+  }
+
+  .salary-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1600px;
+    margin: 80px auto 40px;
+    padding: 30px 25px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    text-align: center;
+  }
+  
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 0 20px;
+  }
+  
+  .header h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #1e3a8a;
+    border-bottom: 2px solid #1e3a8a;
+    display: inline-block;
+  }
+
+  .header-line {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    color: #6b7280;
+  }
+  
+  /* Worker Table */
+  .worker-table {
+    width: 100%;
+    overflow-x: auto; /* Enable horizontal scrolling on small screens */
+  }
+  
+  .worker-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .worker-table th,
+  .worker-table td {
+    padding: 15px 25px;
+    text-align: left;
+    font-size: 1rem;
+    border-bottom: 1px solid #e2e8f0; /* Matches attendance CSS */
+  }
+  
+  .worker-table th {
+    background-color: #1e3a8a; /* Matches attendance CSS */
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  .worker-table td {
+    color: #718096; /* Matches attendance CSS */
+  }
+  
+  .worker-table tr:nth-child(even) {
+    background-color: #f7fafc; /* Matches attendance CSS */
+  }
+  
+  .worker-table tr:hover {
+    background-color: #f7fafc; /* Matches attendance CSS */
+  }
+  
+  /* No Data Row */
+  .no-data {
+    text-align: center;
+    padding: 20px;
+    color: #718096;
+    font-style: italic;
+    font-size: 1rem;
+  }
+  
+  /* Download Button */
+  /* Download Button */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+    background: #e2e8f0; /* Light gray background */
+    color: #1a2e44; /* Dark text color */
+    padding: 10px 20px;
+    border: 1px solid #d1d5db; /* Subtle border */
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none; /* In case used as <a> tag */
+}
+
+.download-btn:hover {
+    background: #d1d5db; /* Slightly darker gray on hover */
+    border-color: #b0b7c0; /* Darker border on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.download-btn:focus {
+    background: #b0b7c0; /* Darker gray on focus/active */
+    color: #ffffff; /* White text on focus/active */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.download-btn:active {
+    background: #b0b7c0; /* Matches focus state */
+    color: #ffffff;
+    transform: translateY(0);
+    box-shadow: none;
+}
+/* icon  */
+
+
+  
+  /* Responsive Design */
+  
+  /* Tablets (max-width: 768px) */
+  @media (max-width: 768px) {
+    .main-section {
+      margin: 30px 15px;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  
+    .header h2 {
+      font-size: 1.6rem;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #1e3a8a;
+    }
+  
+    .worker-table {
+      overflow-x: auto;
+    }
+  
+    .worker-table table {
+      min-width: 700px; /* Matches attendance CSS */
+    }
+  
+    .worker-table th,
+    .worker-table td {
+      font-size: 0.9rem;
+      padding: 10px 15px;
+    }
+  
+    .download-btn {
+      padding: 6px 12px;
+      font-size: 0.9rem;
+    }
+  
+    .no-data {
+      font-size: 0.9rem;
+      padding: 15px;
+    }
+  }
+  
+  /* Mobile devices (max-width: 480px) */
+  @media (max-width: 480px) {
+    .main-section {
+      margin: 20px 10px;
+      padding: 10px;
+      border-radius: 6px;
+    }
+  
+    .header h2 {
+      font-size: 1.4rem;
+      padding-bottom: 4px;
+    }
+  
+    .worker-table th,
+    .worker-table td {
+      font-size: 0.85rem;
+      padding: 8px 10px;
+    }
+  
+    .download-btn {
+      padding: 5px 10px;
+      font-size: 0.85rem;
+    }
+  
+    .no-data {
+      font-size: 0.85rem;
+      padding: 10px;
+    }
+  }
+  
+  /* Extra small devices (max-width: 360px) */
+  @media (max-width: 360px) {
+    .main-section {
+      margin: 15px 5px;
+      padding: 8px;
+    }
+  
+    .header h2 {
+      font-size: 1.2rem;
+      padding-bottom: 3px;
+    }
+  
+    .worker-table table {
+      min-width: 600px;
+    }
+  
+    .worker-table th,
+    .worker-table td {
+      font-size: 0.8rem;
+      padding: 6px 8px;
+    }
+  
+    .download-btn {
+      padding: 4px 8px;
+      font-size: 0.8rem;
+    }
+  
+    .no-data {
+      font-size: 0.8rem;
+      padding: 8px;
+    }
+  }
+
+  /* ---------- */

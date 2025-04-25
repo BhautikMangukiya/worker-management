@@ -1,0 +1,249 @@
+/* ===== A4 Salary Slip Print Styles ===== */
+@page {
+  size: A4;
+  margin: 5mm;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  font-size: 12pt;
+  line-height: 1.5;
+  color: #1a3c5e; /* Dark blue for primary text */
+  background: #ffffff; /* White background */
+  margin: 0;
+  padding: 0;
+  width: 210mm;
+  height: 297mm;
+  box-sizing: border-box;
+}
+
+.pdf-download {
+  width: 190mm;
+  margin: 0 auto;
+  padding: 5mm;
+}
+
+/* ===== Header ===== */
+header {
+  text-align: center;
+  padding: 8mm 0;
+  margin-bottom: 5mm;
+  border-bottom: 0.8mm solid #1e3a8a; /* Deep blue for border */
+}
+
+.company-name h1 {
+  font-size: 28pt;
+  font-weight: 700;
+  color: #1e3a8a; /* Deep blue for company name */
+  margin: 0 0 3mm;
+  text-transform: uppercase;
+}
+
+header p {
+  font-size: 14pt;
+  font-weight: 600;
+  color: #718096; /* Cool gray for subtitle */
+  margin: 2mm 0;
+}
+
+header p strong {
+  font-weight: 600;
+  color: #718096; /* Deep blue for strong text */
+}
+
+/* ===== Employee Info (left-right Section) ===== */
+.left-right {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6mm;
+  padding-bottom: 4mm;
+  border-bottom: 0.5mm solid #1e3a8a; /* Deep blue for border */
+}
+
+.left-sec {
+  width: 50%;
+}
+
+.right-sec {
+  width: 45%;
+}
+
+.left-sec p, .right-sec p {
+  margin: 2.5mm 0;
+  font-size: 11pt;
+}
+
+.left-sec strong, .right-sec strong {
+  font-weight: 600;
+  display: inline-block;
+  width: 30mm;
+  color: #1e3a8a; /* Deep blue for labels */
+}
+
+/* ===== Main Section ===== */
+.main-section {
+  margin: 5mm 0;
+}
+
+/* ===== Heading ===== */
+.heading {
+  text-align: center;
+  margin: 6mm 0;
+}
+
+.heading h2 {
+  font-size: 16pt;
+  font-weight: 700;
+  color: #1e3a8a; /* Deep blue for heading */
+  margin: 8mm 0;
+  text-transform: uppercase;
+}
+
+/* ===== Table Styles ===== */
+.table-wrap {
+  margin: 5mm 0;
+}
+
+.table-title {
+  font-size: 13pt;
+  font-weight: 600;
+  color: #1e3a8a; /* Deep blue for table title */
+  margin: 6mm 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 4mm 0;
+  background-color: #ffffff; /* White for table background */
+  border: 0.5mm solid #718096; /* Cool gray for table border */
+  border-radius: 8px;
+  page-break-inside: avoid;
+}
+
+.attendance-table th, .attendance-table td {
+  padding: 3mm 4mm;
+  font-size: 10.5pt;
+  border-bottom: 0.3mm solid #718096; /* Cool gray for cell borders */
+}
+
+.attendance-table th {
+  background-color: #1a3c5e; /* Dark blue for table headers */
+  color: #ffffff; /* White for header text */
+  font-weight: 600;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.attendance-table td {
+  color: #6b7280; /* Medium gray for table content */
+}
+
+.attendance-table tr:nth-child(even) {
+  background-color: #f5f5f5; /* Light gray (derived shade) for even rows */
+}
+
+.attendance-table tr:hover {
+  background-color: #e8ecef; /* Lighter gray (derived shade) for hover */
+}
+
+.attendance-table td:last-child, .attendance-table th:last-child {
+  text-align: right;
+  font-family: 'Arial', sans-serif;
+  color: #1a3c5e; /* Dark blue for amounts */
+}
+
+.attendance-table h4 {
+  margin: 0;
+  font-size: 11pt;
+  color: #1e3a8a; /* Deep blue for total */
+}
+
+/* ===== Notes Section ===== */
+.notes-section {
+  margin: 6mm 0;
+  padding: 4mm;
+  background-color: #f5f5f5; /* Light gray (derived shade) for background */
+  border: 0.5mm solid #718096; /* Cool gray for border */
+  border-radius: 6px;
+}
+
+.notes-section p {
+  font-size: 11pt;
+  color: #6b7280; /* Medium gray for text */
+  margin: 0;
+}
+
+/* ===== Signature Area ===== */
+.signature-area {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12mm;
+}
+
+.signature-box {
+  width: 80mm;
+  text-align: center;
+}
+
+.signature-box p {
+  border-top: 0.5mm solid #1e3a8a; /* Deep blue for signature line */
+  padding-top: 3mm;
+  margin-top: 12mm;
+  font-size: 10pt;
+  color: #718096; /* Cool gray for text */
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  margin-top: 8mm;
+  font-size: 9pt;
+  color: #6b7280; /* Medium gray for footer text */
+  border-top: 0.3mm solid #718096; /* Cool gray for border */
+  padding-top: 3mm;
+}
+
+.footer p {
+  margin: 2mm 0;
+}
+
+/* ===== Hide Unnecessary Elements ===== */
+.filter-form, .download-btn {
+  display: none;
+}
+
+/* ===== Print-specific Adjustments ===== */
+@media print {
+  body {
+    width: 210mm;
+    height: auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pdf-download {
+    width: 190mm;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .attendance-table, .main-section, .signature-area, .footer {
+    page-break-inside: avoid;
+  }
+
+  .pdf-download {
+    page-break-after: always;
+  }
+
+  .pdf-download:last-child {
+    page-break-after: auto;
+  }
+
+  /* Remove shadows and effects for print */
+  .attendance-table, .notes-section {
+    box-shadow: none;
+  }
+}

@@ -1,3 +1,23 @@
 git add .
 git commit -m "new file add"
 git push origin main
+
+--------------------
+
+Term             | Amount  | Meaning
+                 |         |
+Fixed Salary     | ₹30,000 | Agreed salary before any deductions
+Leave Deduction  | ₹5,000  | Reduced amount due to 5 unpaid leaves
+Net Salary       | ₹25,000 | Final salary after deduction (take-home)
+
+--------------------
+
+
+
+bhautikmangukiya3386
+
+I0unZ6tnZD8ZCHRU
+
+
+
+MONGO_URI=mongodb+srv://bhautik_3386:Bh%40utik_mongo@cluster0.0wfehsw.mongodb.net/workerApp?retryWrites=true&w=majority&appName=Cluster0

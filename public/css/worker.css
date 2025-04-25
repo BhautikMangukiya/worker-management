@@ -8,7 +8,7 @@
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   background-color: #e2e8f0;
-  color: #4a5568;
+  color: #1a3c5e;
   line-height: 1.6;
 }
 
@@ -22,27 +22,56 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* Header */
+.worker-header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1600px;
+  margin: 80px auto 40px;
+  padding: 40px 25px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
+  width: 100%;
+  margin-bottom: 10px;
   padding: 0 20px;
 }
 
-.header h2 {
-  font-size: 32px;
-  color: #4a5568;
-  font-weight: 600;
-  text-transform: capitalize;
-  margin: 0;
+.worker-heading{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1e3a8a;
   padding-bottom: 8px;
-  border-bottom: 3px solid #3182ce;
+  border-bottom: 2px solid #1e3a8a;
+  display: inline-block;
+}
+
+.header-line {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: #6b7280;
+  padding-bottom: 20px;
+  border-bottom: 1.3px solid #1e3a8a;
 }
 
 .header button {
-  background-color: #3182ce;
+  background-color: #3182ce; /* Replacing #007bff with your blue */
   color: #ffffff;
   padding: 10px 20px;
   border: none;
@@ -54,11 +83,12 @@ body {
 }
 
 .header button:hover {
-  background-color: #2b6cb0;
+  background-color: #2b6cb0; /* Slightly darker shade of #3182ce */
 }
 
 /* Worker List */
 .worker-list {
+  margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;

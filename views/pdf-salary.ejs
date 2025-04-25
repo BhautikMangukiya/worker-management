@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salary Report</title>
+    <link rel="stylesheet" href="http://localhost:8000/css/pdf-salary.css" />
+</head>
+
+
+<body>
+    <div id="salary-report-content" class="pdf-download">
+        <!-- Company Logo (optional) -->
+      
+       
+        <header>
+            <div class="company-name">
+                <h1><%= companyName %></h1>
+            </div>
+
+            <p><Strong>Salary Slip</Strong></p>
+        </header>
+
+        <section class="main-section">
+            <div class="left-right">
+                <div class="left-sec">
+                    <p><strong>Worker Name:</strong> <%= worker.name %></p>
+                    <p><strong>Designation:</strong> <%= worker.jobTitle %></p>
+                    <p><strong>Position:</strong> <%= worker.position || 'N/A' %></p>
+                </div>
+                <div class="right-sec">
+                    <p><strong>Worker ID:</strong> <%= worker.employeeId || worker._id %></p>
+                    <p><strong>Phone:</strong> <%= worker.phone %></p>
+                    <p><strong>Email:</strong> <%= worker.email %></p>
+                </div>
+            </div>
+
+            <div class="table">
+                <div class="heading">
+                    <h2>Monthly Salary Report</h2>
+                </div>
+
+                <div class="table-wrap">
+                    <h3 class="table-title">Attendance Summary</h3>
+                    <table class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>Attendance Type</th>
+                                <th>Days</th>
+                                <th>Rate (₹)</th>
+                                <th>Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% salarySummary.summary.forEach(item => { %>
+                                <tr>
+                                    <td><%= item.type %></td>
+                                    <td><%= item.days %></td>
+                                    <td><%= item.rate || (item.amount / item.days).toFixed(2) %></td>
+                                    <td><%= item.amount %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+
+                    <h3 class="table-title">Salary Breakdown</h3>
+                    <table class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="alt-row">
+                                <td><strong>Monthly Salary: </strong></td>
+                                <td>₹<%= salarySummary.monthlySalary.toLocaleString('en-IN') %></td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Daily Salary (approx):	</strong></td>
+                                <td>₹<%= salarySummary.dailySalary.toLocaleString('en-IN') %></td>
+                            </tr>
+                 
+                            
+                            <tr>
+                                <td><strong>Total Payable Salary: </strong></td>
+                                <td>
+                                    <h4>₹<%= salarySummary.totalPayableSalary.toLocaleString('en-IN') %></h4>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <% if (salarySummary.notes) { %>
+                        <div class="notes-section">
+                            <h3 class="table-title">Notes</h3>
+                            <p><%= salarySummary.notes %></p>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+
+            <!-- Signature Area -->
+            <div class="signature-area">
+                <div class="signature-box">
+                    <p>Employee Signature</p>
+                </div>
+                <div class="signature-box">
+                    <p>Authorized Signatory</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="footer">
+            <p>This is a computer generated document and does not require a physical signature.</p>
+            <p>Generated on: <%= new Date().toLocaleString() %></p>
+        </div>
+    </div>
+</body>
+
+</html>

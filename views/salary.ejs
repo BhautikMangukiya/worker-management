@@ -1,1 +1,122 @@
-<%- include("partials/navbar") %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Management</title>
+    <link rel="stylesheet" href="/css/salary.css"> <!-- Assuming your CSS file is in /public/css -->
+    <script src="https://kit.fontawesome.com/e8ebf7517d.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Include Navbar -->
+    <%- include("partials/navbar") %>
+
+        <div class="salary-header">
+            <div class="header">
+                <div>1</div>
+                <h1>Salary Management</h1>
+                <div>2</div>
+            </div>
+
+            <p class="header-line">
+                Smart Salary Systems for Smarter Business.
+            </p>
+        </div>
+
+
+        <!-- Main Section -->
+        <section class="main-section">
+
+
+            <form action="/salary/test" method="POST" class="salary-form">
+                <div class="worker-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Worker Name</th>
+                                <th>Worker Id</th>
+                                <th>Phone No.</th>
+                                <th>Job Title</th>
+                                <th>Position</th>
+                                <th>Fixed Salary</th>
+                                <th>Salary Report</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <% if (workers && workers.length> 0) { %>
+                                <% workers.forEach(worker=> { %>
+                                    <tr ondblclick="redirectTosalaryReport('<%= worker._id %>')"
+                                        title="Double-click to view report">
+                                        <td>
+                                            <strong><%= worker.name %></strong>
+                                        </td>
+                                        <td>
+                                            <%= worker._id %>
+                                        </td>
+                                        <td>
+                                            <%= worker.phone %>
+                                        </td>
+                                        <td>
+                                            <%= worker.jobTitle %>
+                                        </td>
+                                        <td>
+                                            <%= worker.position %>
+                                        </td>
+                                        <td>
+                                            <%= worker.salary %>
+                                        </td>
+                                        <td>
+                                            <a href="/workers/<%= worker._id %>/salary-report">
+                                                <button type="button" class="download-btn"
+                                                    data-worker-id="<%= worker._id %>">
+                                                    <i class="fa-solid fa-eye"></i>View Report
+                                                </button>
+                                            </a>
+
+
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                                        <% } else { %>
+                                            <tr>
+                                                <td colspan="7" class="no-data">No workers found.</td>
+                                            </tr>
+                                            <% } %>
+                        </tbody>
+
+                    </table>
+                </div>
+            </form>
+        </section>
+
+        <!-- Optional: Include JavaScript for Download Functionality -->
+        <script>
+
+            document.addEventListener('DOMContentLoaded', () => {
+                // Select all download buttons (in case you have more than one)
+                const downloadButtons = document.querySelectorAll('.download-btn');
+
+                downloadButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const workerId = button.getAttribute('data-worker-id');
+                        if (workerId) {
+                            window.location.href = `/workers/${workerId}/Salary-report`;
+                        }
+                    });
+                });
+            });
+
+            // Double-click redirect to worker tasks page
+            function redirectTosalaryReport(workerId) {
+                console.log(workerId)
+                window.location.href = `/workers/${workerId}/Salary-report`;
+            }
+
+        </script>
+</body>
+
+</html>

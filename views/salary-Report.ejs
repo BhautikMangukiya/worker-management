@@ -1,0 +1,162 @@
+<%- include("partials/navbar") %>
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salary Report</title>
+    <link rel="stylesheet" href="/css/salary-report.css" />
+    <script src="https://kit.fontawesome.com/e8ebf7517d.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  </head>
+
+  <body>
+    <div id="salary-report-content" class="pdf-download">
+      <header>
+        <div class="company-name">
+          <h2>
+            <%=companyName %>
+          </h2>
+        </div>
+        <p><strong>
+            <%= worker.name %>
+          </strong> - Salary Report</p>
+      </header>
+
+      <section class="main-section">
+        <div class="left-right">
+          <div class="left-sec">
+            <p><strong>Worker Name:</strong>
+              <%= worker.name %>
+            </p>
+            <p><strong>Designation:</strong>
+              <%= worker.jobTitle %>
+            </p>
+            <p><strong>Month & Year:</strong>
+              <%= selectedMonth %> / <%= selectedYear %>
+            </p>
+          </div>
+          <div class="right-sec">
+            <p><strong>Worker ID:</strong>
+              <%= worker._id %>
+            </p>
+            <p><strong>Phone:</strong>
+              <%= worker.phone %>
+            </p>
+            <p><strong>Email:</strong>
+              <%= worker.email %>
+            </p>
+          </div>
+        </div>
+
+        <div class="table">
+          <div class="heading">
+            <h2>Monthly Salary Report</h2>
+            <form method="GET" action="/workers/<%= worker._id %>/salary-report" class="filter-form">
+              <label for="month">Month:</label>
+              <select name="month" id="month" required>
+                <% for (let m=1; m <=12; m++) { const monthName=new Date(0, m - 1).toLocaleString('default', {
+                  month: 'long' }); %>
+                  <option value="<%= m %>" <%=m===selectedMonth ? 'selected' : '' %>><%= monthName %>
+                  </option>
+                  <% } %>
+              </select>
+
+              <label for="year">Year:</label>
+              <select name="year" id="year" required>
+                <% for (let y=2023; y <=2026; y++) { %>
+                  <option value="<%= y %>" <%=y===selectedYear ? 'selected' : '' %>><%= y %>
+                  </option>
+                  <% } %>
+              </select>
+
+              <button type="submit">View Report</button>
+            </form>
+          </div>
+
+          <div class="table-wrap">
+            <h3 class="table-title">Attendance-wise Salary Details</h3>
+            <table class="attendance-table">
+              <thead>
+                <tr>
+                  <th>Attendance Type</th>
+                  <th>No. of Days</th>
+                  <th>Amount (₹)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% salarySummary.summary.forEach(item=> { %>
+                  <tr>
+                    <td>
+                      <%= item.type %>
+                    </td>
+                    <td>
+                      <%= item.days %>
+                    </td>
+                    <td>₹<%= item.amount %>
+                    </td>
+                  </tr>
+                  <% }) %>
+              </tbody>
+            </table>
+
+            <h3 class="table-title">Salary Breakdown Summary</h3>
+            <table class="attendance-table">
+              <thead>
+                <tr>
+                  <th>Salary Type</th>
+                  <th>Amount (₹)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Monthly Salary:</strong></td>
+                  <td>₹<%= salarySummary.monthlySalary %>
+                  </td>
+                </tr>
+                <tr class="alt-row">
+                  <td><strong>Daily Salary (approx):</strong></td>
+                  <td>₹<%= salarySummary.dailySalary %>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Total Payable Salary:</strong></td>
+                  <td>
+                    <h4>₹<%= salarySummary.totalPayableSalary %>
+                    </h4>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="report-dwn">
+      <button type="button" class="download-btn" id="downloadReportBtn" data-worker-id="<%= worker._id %>">
+        <i class="fa-solid fa-download"></i> Download Salary Report
+      </button>
+    </div>
+
+
+
+    <script>
+      document.getElementById('downloadReportBtn').addEventListener('click', function () {
+        const workerId = this.getAttribute('data-worker-id');
+        const selectedMonth = new Date().getMonth() + 1; // Default current month
+        const selectedYear = new Date().getFullYear(); // Default current year
+
+        // Construct the download URL dynamically
+        const downloadUrl = `/workers/${workerId}/salary-report/download?month=${selectedMonth}&year=${selectedYear}`;
+        window.location.href = downloadUrl; // Redirect to the download endpoint
+      });
+    </script>
+
+
+  </body>
+
+  </html>

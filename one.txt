@@ -21,3 +21,4 @@ I0unZ6tnZD8ZCHRU
 
 
 MONGO_URI=mongodb+srv://bhautik_3386:Bh%40utik_mongo@cluster0.0wfehsw.mongodb.net/workerApp?retryWrites=true&w=majority&appName=Cluster0
+

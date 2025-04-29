@@ -1,29 +1,36 @@
-// ✅ routes/workerRoutes.js (Cleaned & Fixed)
+// ✅ routes/workerRoutes.js (Cleaned & Improved Error Handling)
 
 const express = require("express");
 const router = express.Router();
 const { Worker, Admin } = require("../config/db.js");
 const sendTaskEmail = require("../utils/sendmail");
 
+// Middleware to check if admin is logged in
 function isLoggedIn(req, res, next) {
-  if (!req.session.adminId) return res.redirect("/login");
+  if (!req.session.adminId) {
+    console.warn("Unauthorized access attempt detected.");
+    return res.redirect("/login");
+  }
   next();
 }
 
+// GET: All Workers
 router.get("/workers", isLoggedIn, async (req, res) => {
   try {
     const workers = await Worker.find({ createdBy: req.session.adminId });
     res.render("workers", { title: "All Workers", workers });
   } catch (err) {
-    console.error("Error fetching workers:", err);
-    res.status(500).send("Internal Server Error");
+    console.error("Error fetching workers:", err.message);
+    res.status(500).send("❌ Internal Server Error. Please try again later.");
   }
 });
 
+// GET: Add Worker Form
 router.get("/workers/add", isLoggedIn, (req, res) => {
   res.render("addworker", { title: "Add Worker" });
 });
 
+// POST: Add New Worker
 router.post("/workers/add", isLoggedIn, async (req, res) => {
   try {
     const { name, email, phone, jobTitle, position, salary } = req.body;
@@ -31,7 +38,6 @@ router.post("/workers/add", isLoggedIn, async (req, res) => {
 
     const newWorker = new Worker({ name, email, phone, jobTitle, position, salary, createdBy });
     await newWorker.save();
-
 
     const admin = await Admin.findById(createdBy);
     const companyName = admin?.companyName || "Staff Manager";
@@ -56,22 +62,27 @@ router.post("/workers/add", isLoggedIn, async (req, res) => {
     await sendTaskEmail(email, "Welcome to the team!", emailHtml, createdBy);
     res.redirect("/workers");
   } catch (err) {
-    console.error("Error adding worker:", err);
-    res.status(500).send("Internal Server Error");
+    console.error("Error adding new worker:", err.message);
+    res.status(500).send("❌ Failed to add worker. Please try again later.");
   }
 });
 
+// GET: Edit Worker Form
 router.get("/workers/edit/:id", isLoggedIn, async (req, res) => {
   try {
     const worker = await Worker.findOne({ _id: req.params.id, createdBy: req.session.adminId });
-    if (!worker) return res.status(404).send("Worker not found or unauthorized");
+    if (!worker) {
+      console.warn(`Worker not found or unauthorized access for edit: ${req.params.id}`);
+      return res.status(404).send("❌ Worker not found or unauthorized access.");
+    }
     res.render("editWorker", { worker });
   } catch (err) {
-    console.error("Error fetching worker:", err);
-    res.status(500).send("Internal Server Error");
+    console.error("Error fetching worker for edit:", err.message);
+    res.status(500).send("❌ Internal Server Error. Please try again later.");
   }
 });
 
+// POST: Edit Worker
 router.post("/workers/edit/:id", isLoggedIn, async (req, res) => {
   try {
     const updated = await Worker.findOneAndUpdate(
@@ -79,22 +90,29 @@ router.post("/workers/edit/:id", isLoggedIn, async (req, res) => {
       req.body,
       { new: true }
     );
-    if (!updated) return res.status(404).send("Worker not found or unauthorized");
+    if (!updated) {
+      console.warn(`Worker not found or unauthorized access for update: ${req.params.id}`);
+      return res.status(404).send("❌ Worker not found or unauthorized access.");
+    }
     res.redirect("/workers");
   } catch (err) {
-    console.error("Error updating worker:", err);
-    res.status(500).send("Internal Server Error");
+    console.error("Error updating worker:", err.message);
+    res.status(500).send("❌ Failed to update worker. Please try again later.");
   }
 });
 
+// POST: Delete Worker
 router.post("/workers/delete/:id", isLoggedIn, async (req, res) => {
   try {
     const deleted = await Worker.findOneAndDelete({ _id: req.params.id, createdBy: req.session.adminId });
-    if (!deleted) return res.status(404).send("Worker not found or unauthorized");
+    if (!deleted) {
+      console.warn(`Worker not found or unauthorized access for deletion: ${req.params.id}`);
+      return res.status(404).send("❌ Worker not found or unauthorized access.");
+    }
     res.redirect("/workers");
   } catch (err) {
-    console.error("Error deleting worker:", err);
-    res.status(500).send("Internal Server Error");
+    console.error("Error deleting worker:", err.message);
+    res.status(500).send("❌ Failed to delete worker. Please try again later.");
   }
 });
 

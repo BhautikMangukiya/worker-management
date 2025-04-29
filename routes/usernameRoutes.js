@@ -30,8 +30,9 @@ router.post('/forgot-username', async (req, res) => {
       companyName,
     });
   } catch (err) {
+    console.error("Error during verifying password for forgot-username:", err);
     res.render('forgot-username', {
-      error: '❌ Something went wrong!',
+      error: '❌ An unexpected error occurred. Please try again later.',
       success: null,
       showForm: false,
     });
@@ -63,8 +64,9 @@ router.post('/update-username', async (req, res) => {
     });
 
   } catch (err) {
+    console.error("Error while updating username:", err);
     res.render('forgot-username', {
-      error: '❌ Failed to update username.',
+      error: '❌ An unexpected error occurred while updating username. Please try again later.',
       success: null,
       showForm: false,
     });

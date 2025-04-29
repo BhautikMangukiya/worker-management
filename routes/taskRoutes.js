@@ -19,8 +19,8 @@ router.get("/tasks", isLoggedIn, async (req, res) => {
     const workers = await Worker.find({ createdBy: adminId });
     res.render("task", { title: "Task Management", workers });
   } catch (error) {
-    console.error("Error fetching workers:", error);
-    res.status(500).send("Internal Server Error");
+    console.error("Error fetching workers for task page:", error.message);
+    res.status(500).send("Something went wrong while fetching workers. Please try again later.");
   }
 });
 
@@ -31,25 +31,35 @@ router.get("/workers/:id/tasks", isLoggedIn, async (req, res) => {
     const workerId = req.params.id;
 
     const worker = await Worker.findOne({ _id: workerId, createdBy: adminId });
-    if (!worker) return res.status(403).send("Unauthorized access to this worker's tasks");
+    if (!worker) {
+      console.warn(`Unauthorized access attempt by adminId: ${adminId} for workerId: ${workerId}`);
+      return res.status(403).send("Unauthorized access to this worker's tasks");
+    }
 
     const tasks = await Task.find({ workerId, createdBy: adminId });
     res.render("viewTask", { title: "Worker Tasks", worker, tasks });
   } catch (error) {
-    console.error("Error loading tasks:", error);
-    res.status(500).send("Internal Server Error");
+    console.error("Error loading worker tasks:", error.message);
+    res.status(500).send("Unable to load tasks. Please try again later.");
   }
 });
 
 // Show form to assign task to specific worker
 router.get("/task/add/:id", isLoggedIn, async (req, res) => {
-  const workerId = req.params.id;
+  try {
+    const workerId = req.params.id;
 
-  // Ensure the worker belongs to the logged-in admin
-  const worker = await Worker.findOne({ _id: workerId, createdBy: req.session.adminId });
-  if (!worker) return res.status(403).send("Unauthorized access");
+    const worker = await Worker.findOne({ _id: workerId, createdBy: req.session.adminId });
+    if (!worker) {
+      console.warn(`Unauthorized task assignment page access by adminId: ${req.session.adminId} for workerId: ${workerId}`);
+      return res.status(403).send("Unauthorized access to assign task to this worker.");
+    }
 
-  res.render("addTask", { workerId });
+    res.render("addTask", { workerId });
+  } catch (error) {
+    console.error("Error loading add task form:", error.message);
+    res.status(500).send("Something went wrong while loading the task form. Please try again.");
+  }
 });
 
 // Assign task & send email
@@ -58,12 +68,20 @@ router.post("/task/add", isLoggedIn, async (req, res) => {
     const { workerId, taskName, taskDetails, taskDueDate } = req.body;
     const adminId = req.session.adminId;
 
-    // Ensure the worker belongs to the logged-in admin
     const worker = await Worker.findOne({ _id: workerId, createdBy: adminId });
-    if (!worker) throw new Error("Unauthorized or worker not found");
+    if (!worker) {
+      console.warn(`Unauthorized task assignment attempt by adminId: ${adminId} for workerId: ${workerId}`);
+      return res.status(403).send("Unauthorized action or worker not found.");
+    }
+
     const admin = await Admin.findById(adminId);
-    const companyName = admin?.companyName || "Staff Manager";
-    
+    if (!admin) {
+      console.error(`Admin not found with ID: ${adminId}`);
+      return res.status(404).send("Admin not found. Please re-login.");
+    }
+
+    const companyName = admin.companyName || "Staff Manager";
+
     const task = new Task({
       workerId,
       taskName,
@@ -71,7 +89,6 @@ router.post("/task/add", isLoggedIn, async (req, res) => {
       taskDueDate,
       createdBy: adminId,
     });
-
 
     await task.save();
 
@@ -106,8 +123,8 @@ router.post("/task/add", isLoggedIn, async (req, res) => {
 
     res.redirect("/tasks");
   } catch (error) {
-    console.error("Error assigning task:", error);
-    res.status(500).send("Failed to assign task");
+    console.error("Error assigning task:", error.message);
+    res.status(500).send("Failed to assign task. Please ensure all data is correct and try again.");
   }
 });
 

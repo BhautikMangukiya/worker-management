@@ -16,9 +16,9 @@
 
         <div class="salary-header">
             <div class="header">
-                <div>1</div>
+
                 <h1>Salary Management</h1>
-                <div>2</div>
+
             </div>
 
             <p class="header-line">
@@ -52,7 +52,9 @@
                                     <tr ondblclick="redirectTosalaryReport('<%= worker._id %>')"
                                         title="Double-click to view report">
                                         <td>
-                                            <strong><%= worker.name %></strong>
+                                            <strong>
+                                                <%= worker.name %>
+                                            </strong>
                                         </td>
                                         <td>
                                             <%= worker._id %>

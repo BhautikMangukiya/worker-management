@@ -1,3 +1,5 @@
+// ✅ Worker Management Functions
+
 function openAddWorkerForm() {
   window.location.href = "/workers/add";
 }
@@ -9,15 +11,20 @@ function editWorker(workerId) {
 function deleteWorker(workerId) {
   if (confirm("Are you sure you want to delete this worker?")) {
     fetch(`/workers/delete/${workerId}`, { method: "POST" })
-      .then(() => window.location.reload())
-      .catch((err) => console.error(err));
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete worker.");
+        }
+        window.location.reload();
+      })
+      .catch((err) => console.error("Delete Worker Error:", err));
   }
 }
 
-// task page
+// ✅ Task Management Functions
 
 function AddTaskForm(workerId) {
-  window.location.href = `/tasks/add/${workerId}`; 
+  window.location.href = `/tasks/add/${workerId}`;
 }
 
 // Toggle Add Task Form
@@ -29,7 +36,12 @@ function showAddTaskForm() {
 // Fetch and Display Tasks
 function viewTasks(workerId) {
   fetch(`/tasks/${workerId}/view`)
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch tasks.");
+      }
+      return response.json();
+    })
     .then((tasks) => {
       document.getElementById("taskTable").style.display = "block";
       document.getElementById("addTaskForm").style.display = "none";
@@ -38,24 +50,20 @@ function viewTasks(workerId) {
       taskList.innerHTML = "";
 
       if (tasks.length === 0) {
-        taskList.innerHTML = '<tr><td colspan="4">No tasks assigned</td></tr>'; 
+        taskList.innerHTML = '<tr><td colspan="4" style="text-align:center;">No tasks assigned</td></tr>';
         return;
       }
 
       tasks.forEach((task) => {
         taskList.innerHTML += `
-                    <tr>
-                        <td>${task.taskName}</td>
-                        <td>${task.taskDetails}</td>
-                        <td>${new Date(
-                          task.taskDate
-                        ).toLocaleDateString()}</td> <!-- Format date -->
-                        <td>${task.priority}</td>
-                    </tr>
-                `;
+          <tr>
+            <td>${task.taskName}</td>
+            <td>${task.taskDetails}</td>
+            <td>${new Date(task.taskDate).toLocaleDateString()}</td>
+            <td>${task.priority}</td>
+          </tr>
+        `;
       });
     })
-    .catch((error) => console.error("Error fetching tasks:", error));
+    .catch((error) => console.error("View Tasks Error:", error));
 }
-
-// pdf dawenloda

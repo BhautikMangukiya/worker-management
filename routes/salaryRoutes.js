@@ -10,47 +10,54 @@ const router = express.Router();
 
 // Middleware to ensure admin is logged in
 function isLoggedIn(req, res, next) {
-  if (!req.session.adminId) return res.redirect("/login");
+  if (!req.session.adminId) {
+    return res.redirect("/login");
+  }
   next();
 }
 
 // Helper function to calculate salary details
 async function calculateSalaryDetails(worker, startDate, endDate) {
-  const dailySalary = worker.salary / 30;
+  try {
+    const dailySalary = worker.salary / 30;
 
-  const presentDays = await Attendance.countDocuments({
-    workerId: worker._id,
-    status: "Present",
-    date: { $gte: startDate, $lte: endDate },
-  });
+    const presentDays = await Attendance.countDocuments({
+      workerId: worker._id,
+      status: "Present",
+      date: { $gte: startDate, $lte: endDate },
+    });
 
-  const absentDays = await Attendance.countDocuments({
-    workerId: worker._id,
-    status: "Absent",
-    date: { $gte: startDate, $lte: endDate },
-  });
+    const absentDays = await Attendance.countDocuments({
+      workerId: worker._id,
+      status: "Absent",
+      date: { $gte: startDate, $lte: endDate },
+    });
 
-  const halfDays = await Attendance.countDocuments({
-    workerId: worker._id,
-    status: "Half-day",
-    date: { $gte: startDate, $lte: endDate },
-  });
+    const halfDays = await Attendance.countDocuments({
+      workerId: worker._id,
+      status: "Half-day",
+      date: { $gte: startDate, $lte: endDate },
+    });
 
-  const presentAmount = presentDays * dailySalary;
-  const absentAmount = absentDays * dailySalary;
-  const halfDayAmount = halfDays * (dailySalary / 2);
-  const totalPayableSalary = presentAmount + halfDayAmount;
+    const presentAmount = presentDays * dailySalary;
+    const absentAmount = absentDays * dailySalary;
+    const halfDayAmount = halfDays * (dailySalary / 2);
+    const totalPayableSalary = presentAmount + halfDayAmount;
 
-  return {
-    monthlySalary: worker.salary.toFixed(2),
-    dailySalary: dailySalary.toFixed(2),
-    totalPayableSalary: totalPayableSalary.toFixed(2),
-    summary: [
-      { type: "Present Days", days: presentDays, amount: presentAmount.toFixed(2) },
-      { type: "Absent Days", days: absentDays, amount: absentAmount.toFixed(2) },
-      { type: "Half-day Work", days: halfDays, amount: halfDayAmount.toFixed(2) },
-    ],
-  };
+    return {
+      monthlySalary: worker.salary.toFixed(2),
+      dailySalary: dailySalary.toFixed(2),
+      totalPayableSalary: totalPayableSalary.toFixed(2),
+      summary: [
+        { type: "Present Days", days: presentDays, amount: presentAmount.toFixed(2) },
+        { type: "Absent Days", days: absentDays, amount: absentAmount.toFixed(2) },
+        { type: "Half-day Work", days: halfDays, amount: halfDayAmount.toFixed(2) },
+      ],
+    };
+  } catch (error) {
+    console.error("Error calculating salary details:", error);
+    throw new Error("Failed to calculate salary details");
+  }
 }
 
 // Route: Show all workers on the salary page
@@ -75,18 +82,18 @@ router.get("/workers/:id/salary-report", isLoggedIn, async (req, res) => {
     const startDate = moment().year(selectedYear).month(selectedMonth - 1).startOf("month").format("YYYY-MM-DD");
     const endDate = moment().year(selectedYear).month(selectedMonth - 1).endOf("month").format("YYYY-MM-DD");
 
-    // Fetch the worker
     const worker = await Worker.findOne({ _id: workerId, createdBy: adminId });
-    if (!worker) return res.status(404).send("Worker not found or unauthorized access");
+    if (!worker) {
+      console.error("Worker not found or unauthorized access.");
+      return res.status(404).send("Worker not found or unauthorized access");
+    }
 
-    // Fetch the company name from the Admin model
     const admin = await Admin.findOne({ _id: adminId });
     if (!admin) {
+      console.error("Admin not found.");
       return res.status(404).send("Admin not found");
     }
-    const companyName = admin.companyName; // Get the company name
 
-    // Calculate salary details
     const salaryDetails = await calculateSalaryDetails(worker, startDate, endDate);
 
     res.render("salary-Report", {
@@ -99,7 +106,7 @@ router.get("/workers/:id/salary-report", isLoggedIn, async (req, res) => {
       },
       selectedMonth,
       selectedYear,
-      companyName: companyName, // Pass the company name to the EJS file
+      companyName: admin.companyName,
     });
   } catch (error) {
     console.error("Error generating salary report:", error);
@@ -107,34 +114,29 @@ router.get("/workers/:id/salary-report", isLoggedIn, async (req, res) => {
   }
 });
 
-
-
-
-
+// Route: Download salary report PDF
 router.get("/workers/:id/salary-report/download", isLoggedIn, async (req, res) => {
   try {
-    const adminId = req.session.adminId; // Get adminId from session
-    const workerId = req.params.id;
+    const { adminId } = req.session;
+    const { id: workerId } = req.params;
     const selectedMonth = parseInt(req.query.month) || new Date().getMonth() + 1;
     const selectedYear = parseInt(req.query.year) || new Date().getFullYear();
 
     const startDate = moment().year(selectedYear).month(selectedMonth - 1).startOf("month").format("YYYY-MM-DD");
     const endDate = moment().year(selectedYear).month(selectedMonth - 1).endOf("month").format("YYYY-MM-DD");
 
-    // Fetch the worker
     const worker = await Worker.findOne({ _id: workerId, createdBy: adminId });
     if (!worker) {
+      console.error("Worker not found or unauthorized access.");
       return res.status(404).send("Worker not found or unauthorized access");
     }
 
-    // Fetch the company name from the Admin model
     const admin = await Admin.findOne({ _id: adminId });
     if (!admin) {
+      console.error("Admin not found.");
       return res.status(404).send("Admin not found");
     }
-    const companyName = admin.companyName; // Get the company name
 
-    // Calculate salary details
     const dailySalary = worker.salary / 30;
     const presentDays = await Attendance.countDocuments({
       workerId,
@@ -164,15 +166,14 @@ router.get("/workers/:id/salary-report/download", isLoggedIn, async (req, res) =
       summary: [
         { type: "Present Days", days: presentDays, amount: presentAmount.toFixed(2) },
         { type: "Half-day Work", days: halfDays, amount: halfDayAmount.toFixed(2) },
-        { type: "Absent Days", days: absentDays, amount: (-absentAmount.toFixed(2)) },
+        { type: "Absent Days", days: absentDays, amount: (-absentAmount).toFixed(2) },
       ],
     };
 
-    console.log("salarySummary being passed:", salarySummary);
-
     const pdfPath = path.join(__dirname, "../public/reports", `salary-report-${workerId}-${selectedMonth}-${selectedYear}.pdf`);
-    if (!fs.existsSync(path.dirname(pdfPath))) {
-      fs.mkdirSync(path.dirname(pdfPath), { recursive: true });
+    const dirPath = path.dirname(pdfPath);
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
     }
 
     const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] });
@@ -180,10 +181,10 @@ router.get("/workers/:id/salary-report/download", isLoggedIn, async (req, res) =
 
     const htmlContent = await ejs.renderFile(
       path.join(__dirname, "../views/pdf-salary.ejs"),
-      { 
-        worker: worker,
-        salarySummary: salarySummary,
-        companyName: companyName // Pass the company name to the EJS file
+      {
+        worker,
+        salarySummary,
+        companyName: admin.companyName,
       }
     );
 
@@ -191,18 +192,19 @@ router.get("/workers/:id/salary-report/download", isLoggedIn, async (req, res) =
     await page.pdf({ path: pdfPath, format: "A4" });
     await browser.close();
 
-    res.download(pdfPath, `salary-report-${worker.name}-${selectedMonth}-${selectedYear}.pdf`, (err) => {
-      if (err) res.status(500).send("Error generating PDF");
+    res.download(pdfPath, `salary-report ${worker.name} month: ${selectedMonth}-${selectedYear}.pdf`, (err) => {
+      if (err) {
+        console.error("Error downloading PDF:", err);
+        res.status(500).send("Error generating PDF");
+      }
       fs.unlink(pdfPath, (unlinkErr) => {
         if (unlinkErr) console.error("Error deleting PDF:", unlinkErr);
       });
     });
   } catch (error) {
-    console.error("Error generating salary report:", error);
+    console.error("Error generating salary report PDF:", error);
     res.status(500).send("Internal Server Error");
   }
 });
-
-// --------------------------------------
 
 module.exports = router;

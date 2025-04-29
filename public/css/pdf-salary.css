@@ -61,7 +61,7 @@ header p strong {
 }
 
 .left-sec {
-  width: 50%;
+  width: 45%;
 }
 
 .right-sec {
@@ -75,8 +75,9 @@ header p strong {
 
 .left-sec strong, .right-sec strong {
   font-weight: 600;
+  margin-right: 3px;
   display: inline-block;
-  width: 30mm;
+
   color: #1e3a8a; /* Deep blue for labels */
 }
 

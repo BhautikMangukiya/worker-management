@@ -37,7 +37,7 @@ router.get("/attendance", isLoggedIn, async (req, res) => {
       note: attendanceMap[worker._id]?.note || "",
     }));
 
-    res.render("attendance", {
+    res.render("Attendance", {
       records,
       selectedDate,
     });

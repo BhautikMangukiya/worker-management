@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node Server.js"
+    "start": "node Server.js",
+    "build": "npm install && npx puppeteer browsers install chrome"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sparticuz/chromium": "^133.0.0",
     "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
     "connect-flash": "^0.1.1",
@@ -23,6 +25,7 @@
     "morgan": "^1.10.0",
     "nodemailer": "^6.10.0",
     "puppeteer": "^24.7.1",
+    "puppeteer-core": "^24.7.2",
     "twilio": "^5.5.1"
   }
 }

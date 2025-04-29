@@ -1,9 +1,8 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const path = require("path");
 const dotenv = require("dotenv");
 const session = require("express-session");
-const flash = require('connect-flash');
+const flash = require("connect-flash");
 
 dotenv.config();
 
@@ -24,22 +23,23 @@ const PORT = process.env.PORT || 8000;
 
 // Set EJS view engine
 app.set("view engine", "ejs");
+
+// Set static folder
 app.use(express.static(path.join(__dirname, "public")));
-app.use(session({ secret: 'your_secret', resave: false, saveUninitialized: false }));
-app.use(flash());
 
-// Body parsers
-app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Express session setup
+// Session and flash setup
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'defaultSecretKey',
+  secret: process.env.SESSION_SECRET || "defaultSecretKey",
   resave: false,
   saveUninitialized: false,
 }));
+app.use(flash());
 
-// Inject user info into all EJS views
+// Body parsers
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Inject user data into EJS views
 app.use(async (req, res, next) => {
   if (req.session && req.session.adminId) {
     try {
@@ -59,13 +59,12 @@ app.use(async (req, res, next) => {
 app.use(loginRoutes);
 app.use(usernameRoutes);
 
-
-// Middleware to protect routes
+// Auth middleware
 function isAuthenticated(req, res, next) {
   if (req.session && req.session.adminId) {
     return next();
   }
-  return res.redirect("/login");
+  res.redirect("/login");
 }
 
 // Protected routes
@@ -76,11 +75,11 @@ app.use("/", isAuthenticated, attendanceRoutes);
 app.use("/", isAuthenticated, salaryRoutes);
 app.use("/", isAuthenticated, profileRoutes);
 
-// Start server and connect DB
+// Start server and connect to DB
 async function startServer() {
   await connectDB();
 
-  // Create a default admin if not already present
+  // Create a default admin if not exists
   const existing = await Admin.findOne({ username: "Admin123" });
   if (!existing) {
     await Admin.create({
@@ -88,13 +87,13 @@ async function startServer() {
       password: "Admin@123",
       mobile: "8780341577",
       companyName: "Admin Testing",
-      email: "Bhautikmangukiya2005@gmail.com"
+      email: "Bhautikmangukiya2005@gmail.com",
     });
     console.log("✅ Default admin created");
   }
 
   app.listen(PORT, () => {
-    console.log(`\n🚀 Server running at http://localhost:${PORT}\n`);
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
   });
 }
 

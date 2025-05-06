@@ -33,7 +33,7 @@ router.post("/register", async (req, res) => {
   } catch (error) {
     console.error("[POST /register] Registration error:", error);
     res.render("register", {
-      error: "Something went wrong during registration. Please try again.",
+      // error: "Something went wrong during registration. Please try again.",
       success: null,
     });
   }

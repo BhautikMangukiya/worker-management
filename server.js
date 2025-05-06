@@ -8,7 +8,6 @@ dotenv.config();
 
 const { connectDB, Admin } = require("./config/db");
 
-// Routes
 const homeRoutes = require("./routes/homeRoutes");
 const workerRoutes = require("./routes/workerRoutes");
 const taskRoutes = require("./routes/taskRoutes");
@@ -21,13 +20,9 @@ const usernameRoutes = require("./routes/usernameRoutes");
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// Set EJS view engine
 app.set("view engine", "ejs");
-
-// Set static folder
 app.use(express.static(path.join(__dirname, "public")));
 
-// Session and flash setup
 app.use(session({
   secret: process.env.SESSION_SECRET || "defaultSecretKey",
   resave: false,
@@ -35,11 +30,10 @@ app.use(session({
 }));
 app.use(flash());
 
-// Body parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Inject user data into EJS views
+// Inject session user into res.locals
 app.use(async (req, res, next) => {
   if (req.session && req.session.adminId) {
     try {
@@ -55,19 +49,19 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// Public routes
+// ✅ Public routes should be mounted BEFORE any login checks
 app.use(loginRoutes);
 app.use(usernameRoutes);
 
-// Auth middleware
+// ✅ Auth middleware
 function isAuthenticated(req, res, next) {
   if (req.session && req.session.adminId) {
     return next();
   }
-  res.redirect("/login");
+  return res.redirect("/login");
 }
 
-// Protected routes
+// ✅ Apply isAuthenticated ONLY to protected routes
 app.use("/", isAuthenticated, homeRoutes);
 app.use("/", isAuthenticated, workerRoutes);
 app.use("/", isAuthenticated, taskRoutes);
@@ -75,11 +69,10 @@ app.use("/", isAuthenticated, attendanceRoutes);
 app.use("/", isAuthenticated, salaryRoutes);
 app.use("/", isAuthenticated, profileRoutes);
 
-// Start server and connect to DB
+// DB and Server start
 async function startServer() {
   await connectDB();
 
-  // Create a default admin if not exists
   const existing = await Admin.findOne({ username: "Admin123" });
   if (!existing) {
     await Admin.create({

@@ -32,12 +32,26 @@ router.post("/register", async (req, res) => {
     });
   } catch (error) {
     console.error("[POST /register] Registration error:", error);
-    res.render("register", {
-      // error: "Something went wrong during registration. Please try again.",
-      success: null,
-    });
-  }
-});
+  
+    if (error.name === 'ValidationError') {
+      // Collect field-specific error messages
+      const validationErrors = {};
+      for (let field in error.errors) {
+        validationErrors[field] = error.errors[field].message;
+      }
+  
+      res.render("register", {
+        success: null,
+        error: validationErrors  
+      });
+    } else {
+      res.render("register", {
+        success: null,
+        error: { general: "Something went wrong during registration." }
+      });
+    }
+  
+};
 
 // ------------------- Login ------------------- //
 router.get("/login", (req, res) => {

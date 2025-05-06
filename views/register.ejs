@@ -3,54 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register-Create New Profile</title>
+  <title>Register - Create New Profile</title>
   <link rel="stylesheet" href="/css/register.css">
 </head>
 <body>
   <div class="register-wrapper">
     <h2>Create New Admin Profile</h2>
-  
-    <% if (error) { %>
-      <p class="error-message"><%= error %></p>
+
+    <% if (error && error.general) { %>
+      <p class="error-message"><%= error.general %></p>
     <% } %>
-  
+
     <% if (success) { %>
       <p class="success-message"><%= success %></p>
     <% } %>
-  
+
     <form class="register-form" method="POST" action="/register">
       <div class="form-group">
         <label for="companyName">Company Name:</label>
         <input type="text" id="companyName" name="companyName" required />
+        <% if (error && error.companyName) { %>
+          <p class="error-message"><%= error.companyName %></p>
+        <% } %>
       </div>
-  
+
       <div class="form-group">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required />
+        <% if (error && error.username) { %>
+          <p class="error-message"><%= error.username %></p>
+        <% } %>
       </div>
-  
+
       <div class="form-group">
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required />
+        <% if (error && error.password) { %>
+          <p class="error-message"><%= error.password %></p>
+        <% } %>
       </div>
-  
+
       <div class="form-group">
         <label for="mobile">Mobile Number:</label>
-        <input type="text" id="mobile" name="mobile"  required/>
+        <input type="text" id="mobile" name="mobile" required />
+        <% if (error && error.mobile) { %>
+          <p class="error-message"><%= error.mobile %></p>
+        <% } %>
       </div>
 
       <div class="form-group">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required />
+        <% if (error && error.email) { %>
+          <p class="error-message"><%= error.email %></p>
+        <% } %>
       </div>
-  
-      <button type="submit" class="register-btn">Create Admin</button>
 
-      
+      <button type="submit" class="register-btn">Create Admin</button>
     </form>
 
-    <br><a href="/login" class="bck-to-login"> ← Back to Login</a>
+    <br><a href="/login" class="bck-to-login">← Back to Login</a>
   </div>
-
 </body>
 </html>

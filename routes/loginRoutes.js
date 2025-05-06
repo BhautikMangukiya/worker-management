@@ -50,15 +50,7 @@ router.post("/register", async (req, res) => {
         error: { general: "Something went wrong during registration." }
       });
     }
-  
-};
-
-// ------------------- Login ------------------- //
-router.get("/login", (req, res) => {
-  res.render("login", {
-    error: null,
-    success: req.query.success || null,
-  });
+  }
 });
 
 router.post("/login", async (req, res) => {

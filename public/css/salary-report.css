@@ -92,6 +92,7 @@ header p strong {
   display: flex;
   align-items: center;
   flex-direction: column;
+  gap: 10px;
 }
 
 /* Heading Section (Title and Filter Form) */
@@ -306,13 +307,13 @@ header p strong {
 
   .left-right {
     flex-direction: column;
-    gap: 15px;
-    align-items: center;
+    gap: 0;
+    align-items: start;
   }
 
   .left-sec,
   .right-sec {
-    text-align: center;
+    text-align: start;
   }
 
   .left-sec p,
@@ -334,22 +335,28 @@ header p strong {
   .filter-form {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
+
   }
 
   .filter-form label {
     font-size: 0.95rem;
   }
 
-  .filter-form select,
-  .filter-form button {
+  .filter-form select{
     font-size: 0.95rem;
     padding: 6px 20px 6px 10px;
     background-position: right 6px center;
   }
+  .filter-form button {
+    font-size: 0.95rem;
+    padding: 30px;
+    background-position: right 6px center;
+    margin-top: 10px;
+  }
 
   .filter-form button {
     padding: 6px 12px;
+    margin-bottom: 10px;
   }
 
   .table-title {
@@ -359,9 +366,7 @@ header p strong {
 
   .attendance-table {
     width: 100%;
-    min-width: 600px;
-    overflow-x: auto;
-    display: block;
+    border-radius: 10px;
   }
 
   .attendance-table th,
@@ -382,6 +387,7 @@ header p strong {
     padding: 8px 16px;
     font-size: 0.95rem;
   }
+
 }
 
 /* Mobile devices (max-width: 480px) */
@@ -417,13 +423,18 @@ header p strong {
   }
 
   .filter-form label {
-    font-size: 0.9rem;
+    font-size: 16px;
   }
 
-  .filter-form select,
-  .filter-form button {
+  .filter-form select{
     font-size: 0.9rem;
     padding: 5px 18px 5px 8px;
+    background-position: right 5px center;
+  }
+  
+  .filter-form button {
+    font-size: 0.9rem;
+    padding: 5px 15px 5px 10px;
     background-position: right 5px center;
   }
 
@@ -450,6 +461,9 @@ header p strong {
     padding: 6px 12px;
     font-size: 0.9rem;
   }
+
+
+  
 }
 
 /* Extra small devices (max-width: 360px) */
@@ -480,11 +494,12 @@ header p strong {
 
   .heading h2 {
     font-size: 1.2rem;
+    margin-bottom: 10px;
   }
-
+/* 
   .filter-form label {
     font-size: 0.85rem;
-  }
+  } */
 
   .filter-form select,
   .filter-form button {
@@ -494,12 +509,13 @@ header p strong {
   }
 
   .filter-form button {
-    padding: 4px 8px;
+    margin-top: 18px;
+    padding: 10px 16px;
   }
 
   .table-title {
     font-size: 1.1rem;
-    margin: 25px 0 10px;
+    margin: 0px 0 10px;
   }
 
   .attendance-table th,
@@ -513,8 +529,10 @@ header p strong {
   }
 
   .download-btn {
-    padding: 5px 10px;
+    margin-top: 15px;
+    padding: 10px 12px;
     font-size: 0.85rem;
+    margin-bottom: 10px;
   }
 }
 
@@ -534,7 +552,7 @@ header p strong {
     margin: 10mm auto;
     padding: 10mm;
     box-shadow: none;
-    border-radius: 0 Muc
+    border-radius: 0 ;
     background-color: #ffffff;
   }
 
@@ -632,3 +650,4 @@ header p strong {
     size: A4;
     margin: 10mm;
   }
+}

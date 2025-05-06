@@ -9,14 +9,6 @@ const { Worker, Attendance, Admin } = require("../config/db");
 
 const router = express.Router();
 
-// Configure Puppeteer for Render
-const puppeteerOptions = {
-  args: chromium.args,
-  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || await chromium.executablePath(),
-  headless: chromium.headless,
-  defaultViewport: chromium.defaultViewport,
-};
-
 // Middleware to ensure admin is logged in
 const isLoggedIn = (req, res, next) => {
   if (!req.session.adminId) {
@@ -26,10 +18,18 @@ const isLoggedIn = (req, res, next) => {
   next();
 };
 
-// Helper function to calculate salary details
+// Puppeteer launch options
+const getPuppeteerOptions = async () => ({
+  args: chromium.args,
+  executablePath: (await chromium.executablePath()) || '/usr/bin/chromium-browser',
+  headless: chromium.headless,
+  defaultViewport: chromium.defaultViewport,
+});
+
+// Calculate salary logic
 const calculateSalaryDetails = async (worker, startDate, endDate) => {
   const dailySalary = worker.salary / 30;
-  
+
   const [presentDays, absentDays, halfDays] = await Promise.all([
     Attendance.countDocuments({
       workerId: worker._id,
@@ -65,23 +65,23 @@ const calculateSalaryDetails = async (worker, startDate, endDate) => {
   };
 };
 
-// Route: Show all workers on the salary page
+// Route: View salary management page
 router.get("/salary", isLoggedIn, async (req, res) => {
   try {
     const workers = await Worker.find({ createdBy: req.session.adminId });
-    res.render("salary", { 
-      title: "Salary Management", 
+    res.render("salary", {
+      title: "Salary Management",
       workers,
-      moment // Pass moment to view for date formatting
+      moment
     });
   } catch (error) {
     console.error("Error fetching workers:", error);
     req.flash('error', 'Failed to load salary page');
-    res.redirect('back');
+    res.redirect(req.get("Referrer") || "/");
   }
 });
 
-// Route: Show salary report for a specific worker
+// Route: View salary report
 router.get("/workers/:id/salary-report", isLoggedIn, async (req, res) => {
   try {
     const { adminId } = req.session;
@@ -109,13 +109,13 @@ router.get("/workers/:id/salary-report", isLoggedIn, async (req, res) => {
       selectedMonth,
       selectedYear,
       companyName: admin.companyName,
-      moment // Pass moment to view
+      moment
     });
 
   } catch (error) {
     console.error("Error generating salary report:", error);
     req.flash('error', error.message);
-    res.redirect('back');
+    res.redirect(req.get("Referrer") || "/");
   }
 });
 
@@ -141,17 +141,15 @@ router.get("/workers/:id/salary-report/download", isLoggedIn, async (req, res) =
 
     const salaryDetails = await calculateSalaryDetails(worker, startDate, endDate);
 
-    // Prepare PDF path
     const pdfDir = path.join(__dirname, "../public/reports");
     const pdfPath = path.join(pdfDir, `salary-report-${workerId}-${selectedMonth}-${selectedYear}.pdf`);
-    
-    // Ensure directory exists
+
     if (!fs.existsSync(pdfDir)) {
       fs.mkdirSync(pdfDir, { recursive: true });
     }
 
-    // Generate PDF
-    browser = await puppeteer.launch(puppeteerOptions);
+    const options = await getPuppeteerOptions();
+    browser = await puppeteer.launch(options);
     const page = await browser.newPage();
 
     const htmlContent = await ejs.renderFile(
@@ -160,31 +158,31 @@ router.get("/workers/:id/salary-report/download", isLoggedIn, async (req, res) =
     );
 
     await page.setContent(htmlContent, { waitUntil: "networkidle0" });
-    await page.pdf({ 
-      path: pdfPath, 
+    await page.pdf({
+      path: pdfPath,
       format: "A4",
       margin: { top: '20mm', right: '20mm', bottom: '20mm', left: '20mm' },
       printBackground: true
     });
 
-    // Stream the PDF to client
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename=salary-report-${worker.name}-${selectedMonth}-${selectedYear}.pdf`);
-    
+
     const fileStream = fs.createReadStream(pdfPath);
     fileStream.pipe(res);
 
-    // Cleanup after streaming
-    fileStream.on('end', () => {
-      fs.unlink(pdfPath, (err) => {
-        if (err) console.error('Error deleting temporary PDF:', err);
-      });
+    fileStream.on('end', async () => {
+      try {
+        await fs.promises.unlink(pdfPath);
+      } catch (err) {
+        console.error('Error deleting temporary PDF:', err);
+      }
     });
 
   } catch (error) {
     console.error("Error generating salary report PDF:", error);
     req.flash('error', 'Failed to generate PDF report');
-    res.redirect('back');
+    res.redirect(req.get("Referrer") || "/");
   } finally {
     if (browser) {
       await browser.close().catch(err => console.error('Error closing browser:', err));

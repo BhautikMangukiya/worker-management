@@ -25,7 +25,7 @@ async function connectDB() {
     }
 
     // Enable Mongoose debugging
-    mongoose.set('debug', true);
+    // mongoose.set('debug', true);
 
     // Connection events
     mongoose.connection.on('connecting', () => console.log('\nConnecting to MongoDB...'));

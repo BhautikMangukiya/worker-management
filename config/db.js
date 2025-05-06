@@ -215,9 +215,17 @@ const adminSchema = new mongoose.Schema({
     maxlength: [30, 'Username cannot exceed 30 characters']
   },
   password: { 
-    type: String, 
+    type: String,
     required: [true, 'Password is required'],
-    minlength: [8, 'Password must be at least 8 characters']
+    minlength: [8, 'Password must be at least 8 characters'],
+    trim: true,
+    validate: {
+      validator: function(v) {
+        return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/.test(v); 
+        // at least 1 letter, 1 number, 8 chars min
+      },
+      message: 'Password must contain at least one letter and one number'
+    }
   },
   mobile: { 
     type: String, 
